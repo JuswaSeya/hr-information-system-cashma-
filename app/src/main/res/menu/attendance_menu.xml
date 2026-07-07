@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_leave"
+        android:title="Leave" />
+    <item
+        android:id="@+id/menu_obt"
+        android:title="OBT" />
+    <item
+        android:id="@+id/menu_offset"
+        android:title="OFF Set" />
+    <item
+        android:id="@+id/menu_ot"
+        android:title="Overtime" />
+</menu>

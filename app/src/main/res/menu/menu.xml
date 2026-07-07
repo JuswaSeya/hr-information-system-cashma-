@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/list"
+        android:title=""
+        android:icon="@drawable/vectoreyelogo"/>
+
+
+    <item
+        android:id="@+id/none"
+        android:title=""
+        android:icon="@android:color/transparent"/>
+
+    <item
+        android:id="@+id/subscriptions"
+        android:title=""
+        android:icon="@drawable/infologo"/>
+
+
+</menu>
