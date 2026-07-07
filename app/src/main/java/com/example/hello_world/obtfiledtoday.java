@@ -10,24 +10,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Off_Set extends AppCompatActivity {
-private Button offsetbackbtn;
+public class obtfiledtoday extends AppCompatActivity {
+private Button obtbtnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.fab_off_set);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.fab_off_set), (v, insets) -> {
+        setContentView(R.layout.activity_obtfiledtoday);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.obtfiledtodaypage), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        offsetbackbtn=findViewById(R.id.offsetbackbtn);
-        offsetbackbtn.setOnClickListener(view -> {
-            Intent intent = new Intent (Off_Set.this, HomePage.class);
+        obtbtnBack=findViewById(R.id.obtbtnBack);
+        obtbtnBack.setOnClickListener(view -> {
+            Intent intent = new Intent(obtfiledtoday.this, HomePage.class);
             startActivity(intent);
         });
     }
-}
+    }

@@ -12,7 +12,8 @@
         android:icon="@android:color/transparent"/>
 
     <item
-        android:id="@+id/subscriptions"
+        android:id="@+id/infoButton"
+
         android:title=""
         android:icon="@drawable/infologo"/>
 

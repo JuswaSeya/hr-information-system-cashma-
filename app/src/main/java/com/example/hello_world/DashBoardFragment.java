@@ -106,7 +106,10 @@ public class DashBoardFragment extends Fragment {
             startActivity(new Intent(requireContext(), incident_report.class));
         });
 
-
+        LinearLayout obtbutton=view.findViewById(R.id.OBTbutton);
+        obtbutton.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), obtfiledtoday.class));
+        });
 
         return view;
     }

@@ -54,8 +54,11 @@ public class HomePage extends AppCompatActivity {
             if (item.getItemId() == R.id.list) {
                 viewPager.setCurrentItem(0, false);
                 return true;
-            } else if (item.getItemId() == R.id.subscriptions) {
+            } else if (item.getItemId() == R.id.infoButton) {
                 viewPager.setCurrentItem(1, false);
+
+                Intent intent=new Intent(HomePage.this, info.class);
+                startActivity(intent);
                 return true;
             }
             return false;
