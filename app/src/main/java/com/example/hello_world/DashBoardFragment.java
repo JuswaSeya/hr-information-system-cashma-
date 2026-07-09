@@ -1,6 +1,11 @@
 package com.example.hello_world;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +13,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.hello_world.Query.EmployeeLogin;
+import com.example.hello_world.models.Employee;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,11 @@ public class DashBoardFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String employeeID;
+    private String EmpName;
+
+
 
     public DashBoardFragment() {
         // Required empty public constructor
@@ -65,12 +81,38 @@ public class DashBoardFragment extends Fragment {
 
         LinearLayout activeEmployee= view.findViewById(R.id.actempButton);
 
+        SharedPreferences prefs = requireActivity()
+                .getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+        employeeID = prefs.getString("emp_id", null);
+        Toast.makeText(requireContext(), "Employee ID"+employeeID, Toast.LENGTH_SHORT).show();
+        TextView nameLayout = view.findViewById(R.id.textView7);
+        TextView position = view.findViewById(R.id.jobtitle);
+
+        ImageView image = view.findViewById(R.id.imageView2);
+
+        Employee employee= new Employee();
+
+
+        employee= new EmployeeLogin().value(employeeID, requireContext());
+        nameLayout.setText(employee.getName());
+        position.setText(employee.getPosition());
+        if (employee.getImageByte() != null && employee.getImageByte().length > 0) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(employee.getImageByte(), 0, employee.getImageByte().length);
+            image.setImageBitmap(bitmap);
+        } else {
+            image.setImageResource(R.drawable.profile); // optional default image
+        }
+
+
+
         activeEmployee.setOnClickListener(v -> {;
 
             Intent intent = new Intent(requireContext(), ActiveEmployee.class);
             startActivity(intent);
 
         });
+
+
 
         LinearLayout announcement= view.findViewById(R.id.AnnouncementButton);
 

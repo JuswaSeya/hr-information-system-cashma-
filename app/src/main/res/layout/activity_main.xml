@@ -65,7 +65,7 @@
                 app:hintTextColor="#FF6B35">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/login"
+                    android:id="@+id/username_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email_or_username"
@@ -134,12 +134,14 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="384dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="14dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="      If you forgot your password, please Go with the Company IT Department       "
+        android:text="      If you forgot your password, Please Go with the Company IT Department       "
         android:textColor="#888888"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -2,12 +2,15 @@ package com.example.hello_world.dbconnection;
 
 import android.content.Context;
 
+import com.example.hello_world.ActiveEmployee;
+
 import java.sql.Connection;
 
 
 public class connector {
     private Context context;
 private Connection con;
+
 
     public connector(Context context) {
         this.context = context;

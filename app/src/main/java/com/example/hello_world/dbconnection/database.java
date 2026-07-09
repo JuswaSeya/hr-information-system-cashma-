@@ -13,10 +13,10 @@ public class database {
     public database DB1(){
 
         database db = new database();
-        db.server= "clear";
-        db.password = "clear";
-        db.ip="clear";
-        db.database = "clear";
+        db.server= "";
+        db.password = "";
+        db.ip="";
+        db.database = "";
     return db;
 
     }
