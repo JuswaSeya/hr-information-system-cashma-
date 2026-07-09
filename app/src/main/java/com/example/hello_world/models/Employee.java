@@ -8,6 +8,25 @@ private String name ;
 
 private String position;
 
+private int leaveNumber;
+
+private int incidentNumber;
+
+    public int getIncidentNumber() {
+        return incidentNumber;
+    }
+
+    public void setIncidentNumber(int incidentNumber) {
+        this.incidentNumber = incidentNumber;
+    }
+
+    public int getLeaveNumber() {
+        return leaveNumber;
+    }
+
+    public void setLeaveNumber(int leaveNumber) {
+        this.leaveNumber = leaveNumber;
+    }
 
     public byte[] imageByte;
 

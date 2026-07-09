@@ -85,15 +85,20 @@ public class DashBoardFragment extends Fragment {
                 .getSharedPreferences("UserSession", Context.MODE_PRIVATE);
         employeeID = prefs.getString("emp_id", null);
         Toast.makeText(requireContext(), "Employee ID"+employeeID, Toast.LENGTH_SHORT).show();
+
+
         TextView nameLayout = view.findViewById(R.id.textView7);
         TextView position = view.findViewById(R.id.jobtitle);
-
         ImageView image = view.findViewById(R.id.imageView2);
-
+        TextView leavesdisplay =view.findViewById(R.id.numleaves);
+        TextView incident_display= view.findViewById(R.id.incidentdisplay);
         Employee employee= new Employee();
 
 
         employee= new EmployeeLogin().value(employeeID, requireContext());
+        incident_display.setText(String.valueOf( employee.getIncidentNumber()));
+        leavesdisplay.setText(String.valueOf( employee.getLeaveNumber()));
+
         nameLayout.setText(employee.getName());
         position.setText(employee.getPosition());
         if (employee.getImageByte() != null && employee.getImageByte().length > 0) {

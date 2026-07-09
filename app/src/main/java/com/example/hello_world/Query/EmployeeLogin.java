@@ -64,6 +64,9 @@ public class EmployeeLogin {
                     employee.setPosition(rs.getString("JobTitle"));
                     employee.setName( rs.getString("Name"));
                     employee.setImageByte(rs.getBytes("ProfilePicture"));
+                    employee.setLeaveNumber(rs.getInt("LeaveCredits"));
+                    employee.setIncidentNumber(rs.getInt("IncidentCount"));
+
                     return employee;
                 }
 
