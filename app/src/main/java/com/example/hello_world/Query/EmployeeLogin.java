@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.example.hello_world.dbconnection.connector;
 import com.example.hello_world.models.Employee;
+import com.example.hello_world.models.forActiveEmployees;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class EmployeeLogin {
 
@@ -80,6 +83,48 @@ public class EmployeeLogin {
 
         return null;
  }
+
+
+    public ArrayList<forActiveEmployees> getActiveEmployees(Context context) {
+
+        ArrayList<forActiveEmployees> list = new ArrayList<>();
+
+        try {
+
+            Connection connector = new connector(context).getConnection();
+
+            String sql =
+                    "select * from tblHRDEmployees where active ='true'";
+
+
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+
+                list.add(new forActiveEmployees(
+
+
+                        rs.getString("Employee_ID"),
+                        rs.getString("Fullname"),
+                        rs.getString("JobTitle"),
+                        rs.getString("Department"),
+                        rs.getString("Active")
+
+                ));
+
+            }
+
+        }catch(Exception e){
+
+            e.printStackTrace();
+
+        }
+
+        return list;
+    }
 
 }
 
