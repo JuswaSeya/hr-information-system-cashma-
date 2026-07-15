@@ -13,13 +13,14 @@ public class database {
     public database DB1(){
 
         database db = new database();
-        db.server= "";
-        db.password = "";
-        db.ip="";
-        db.database = "";
+        db.server= "sa";
+        db.password = "g@t3k33p3R2024";
+        db.ip="10.10.0.139";
+        db.database = "HRIS2";
     return db;
 
     }
+
     @SuppressLint("NewApi")
     public Connection connectionClass(String user, String password, String database, String server) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

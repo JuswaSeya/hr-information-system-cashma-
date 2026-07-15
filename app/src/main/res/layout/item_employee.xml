@@ -1,77 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
+    android:id="@+id/empDetailscard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
 
+    android:layout_marginBottom="16dp"
+    app:cardBackgroundColor="#80FFFFFF"
     app:cardCornerRadius="16dp"
-    app:cardElevation="8dp"
-    app:cardBackgroundColor="#80FFFFFF">
+    app:cardElevation="8dp">
 
     <LinearLayout
+
+        android:id="@+id/empDetailsdashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/imgProfile"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/profile"/>
+            android:src="@drawable/profile" />
 
         <LinearLayout
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="16dp"
+            android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txtEmpID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#E0E0E0"/>
+                android:textColor="#E0E0E0" />
 
             <TextView
                 android:id="@+id/txtDepartment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#BDBDBD"/>
+                android:textColor="#BDBDBD" />
 
             <TextView
                 android:id="@+id/txtStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#81C784"
-                android:text="Active"/>
+                android:text="Active"
+                android:textColor="#81C784" />
 
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/employeeArrowDetails"
             android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_arrow_forward"/>
+            android:layout_height="27dp"
+            android:src="@drawable/ic_arrow_forward" />
 
     </LinearLayout>
 

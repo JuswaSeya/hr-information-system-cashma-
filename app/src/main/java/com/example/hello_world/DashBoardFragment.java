@@ -1,5 +1,7 @@
 package com.example.hello_world;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +42,8 @@ public class DashBoardFragment extends Fragment {
     private String employeeID;
     private String EmpName;
 
+    private String name;
+
 
 
     public DashBoardFragment() {
@@ -79,12 +83,15 @@ public class DashBoardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_dash_board, container, false);
 
-        LinearLayout activeEmployee= view.findViewById(R.id.actempButton);
+
+
 
         SharedPreferences prefs = requireActivity()
-                .getSharedPreferences("UserSession", Context.MODE_PRIVATE);
+                .getSharedPreferences("UserSession", MODE_PRIVATE);
         employeeID = prefs.getString("emp_id", null);
-        Toast.makeText(requireContext(), "Employee ID"+employeeID, Toast.LENGTH_SHORT).show();
+
+
+
 
 
         TextView nameLayout = view.findViewById(R.id.textView7);
@@ -95,12 +102,21 @@ public class DashBoardFragment extends Fragment {
         Employee employee= new Employee();
 
 
+        TextView active_count = view.findViewById(R.id.activeEmployeeCount);
+
+        active_count.setText( String.valueOf(new EmployeeLogin().activeNum(requireContext())));
+
+
         employee= new EmployeeLogin().value(employeeID, requireContext());
+
         incident_display.setText(String.valueOf( employee.getIncidentNumber()));
         leavesdisplay.setText(String.valueOf( employee.getLeaveNumber()));
 
         nameLayout.setText(employee.getName());
         position.setText(employee.getPosition());
+        name = employee.getName();
+        Toast.makeText(requireContext(), name +" \t" + employeeID, Toast.LENGTH_SHORT).show();
+
         if (employee.getImageByte() != null && employee.getImageByte().length > 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(employee.getImageByte(), 0, employee.getImageByte().length);
             image.setImageBitmap(bitmap);
@@ -108,7 +124,7 @@ public class DashBoardFragment extends Fragment {
             image.setImageResource(R.drawable.profile); // optional default image
         }
 
-
+        LinearLayout activeEmployee= view.findViewById(R.id.actempButton);
 
         activeEmployee.setOnClickListener(v -> {;
 
