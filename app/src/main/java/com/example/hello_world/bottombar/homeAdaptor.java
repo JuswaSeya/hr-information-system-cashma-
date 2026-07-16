@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.hello_world.DashBoardFragment;
+import com.example.hello_world.DashBoard.DashBoardFragment;
 import com.example.hello_world.InfoFragment;
 
 public class homeAdaptor extends FragmentStateAdapter {

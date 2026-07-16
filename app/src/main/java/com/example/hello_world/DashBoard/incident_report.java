@@ -1,4 +1,4 @@
-package com.example.hello_world;
+package com.example.hello_world.DashBoard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.hello_world.R;
 
 public class incident_report extends AppCompatActivity {
 

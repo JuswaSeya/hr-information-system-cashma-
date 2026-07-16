@@ -1,7 +1,5 @@
 package com.example.hello_world.adapter;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,9 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hello_world.ActiveEmployee;
 import com.example.hello_world.R;
-import com.example.hello_world.employee_details;
+import com.example.hello_world.DashBoard.ActiveEmployee.employee_details;
 import com.example.hello_world.models.Employee;
 
 import java.util.ArrayList;
@@ -80,7 +77,15 @@ holder.empDetailsdashboard.setOnClickListener(v ->
 
 });
 
+        holder.itemView.setOnClickListener(v -> {
 
+            Intent intent = new Intent(context, employee_details.class);
+
+            intent.putExtra("EMP_ID", employee.getEmpId());
+
+            context.startActivity(intent);
+
+        });
 
         if (employee.getImageByte() != null && employee.getImageByte().length > 0) {
 

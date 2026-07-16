@@ -1,21 +1,16 @@
-package com.example.hello_world;
+package com.example.hello_world.DashBoard.ActiveEmployee;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hello_world.Query.EmployeeLogin;
+import com.example.hello_world.DashBoard.HomePage;
+import com.example.hello_world.Query.EmployeeSqlQuery;
+import com.example.hello_world.R;
 import com.example.hello_world.adapter.EmployeeAdapter;
 import com.example.hello_world.models.Employee;
 import com.google.android.material.button.MaterialButton;
@@ -27,7 +22,7 @@ public class ActiveEmployee extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EmployeeAdapter adapter;
-    private EmployeeLogin dao;
+    private EmployeeSqlQuery dao;
 
 
     private TextInputEditText etSearch;
@@ -35,13 +30,13 @@ public class ActiveEmployee extends AppCompatActivity {
 
 
 
-//    private Button btnBackUC3;
+                                                                                                            //    private Button btnBackUC3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_employee);
-
+        android.util.Log.d("ACTIVE", "ActiveEmployee opened");
         recyclerView = findViewById(R.id.recyclerEmployees);
         etSearch = findViewById(R.id.etSearch);
         btnSearch = findViewById(R.id.btnSearch);
@@ -50,34 +45,44 @@ public class ActiveEmployee extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        dao = new EmployeeLogin();
+        dao = new EmployeeSqlQuery();
+        dao = new EmployeeSqlQuery();
+                                                                                                                        // thread to show
+        new Thread(() -> {
 
-        ArrayList<Employee> list = dao.getActiveEmployees(this);
+            ArrayList<Employee> list = dao.getActiveEmployees(ActiveEmployee.this);
+            android.util.Log.d("EMPLOYEE", "Size = " + list.size());
+            runOnUiThread(() -> {
+                adapter = new EmployeeAdapter(ActiveEmployee.this, list);
+                recyclerView.setAdapter(adapter);
+            });
 
-        adapter = new EmployeeAdapter(this, list);
+        }).start();
 
-        recyclerView.setAdapter(adapter);
-
+//for search button
         btnSearch.setOnClickListener(v -> {
 
-            String keyword = etSearch.getText().toString().trim();
+            new Thread(() -> {
 
-            ArrayList<Employee> result;
+                String keyword = etSearch.getText().toString().trim();
 
-            if (keyword.isEmpty()) {
-                result = dao.getActiveEmployees(this);
-            } else {
-                result = dao.searchEmployees(this, keyword);
-            }
+                ArrayList<Employee> result;
 
-            adapter.updateList(result);
+                if (keyword.isEmpty()) {
+                    result = dao.getActiveEmployees(ActiveEmployee.this);
+                } else {
+                    result = dao.searchEmployees(ActiveEmployee.this, keyword);
+                }
 
+                runOnUiThread(() -> {
+                    adapter.updateList(result);
+                });
 
-
+            }).start();
 
 
         });
-//findViewById(R.id.NameNgIdNgButton)
+                                                                                                            //findViewById(R.id.NameNgIdNgButton)
                 Button backBtn = findViewById(R.id.btnBackUC3);
         Intent intent = new Intent(ActiveEmployee.this, HomePage.class);
         backBtn.setOnClickListener(v -> {

@@ -13,7 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.hello_world.Query.EmployeeLogin;
+import com.example.hello_world.DashBoard.HomePage;
+import com.example.hello_world.Query.EmployeeSqlQuery;
 import com.example.hello_world.models.Employee;
 
 import java.security.MessageDigest;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             continueButton.setOnClickListener(view -> {
 
                 prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
-              boolean isSuccess =   new EmployeeLogin().login(emp,MainActivity.this);
+              boolean isSuccess =   new EmployeeSqlQuery().login(emp,MainActivity.this);
                 if (isSuccess){
                     SharedPreferences.Editor editor = prefs.edit();
                     Toast.makeText(this, "Successfully Login!", Toast.LENGTH_SHORT).show();

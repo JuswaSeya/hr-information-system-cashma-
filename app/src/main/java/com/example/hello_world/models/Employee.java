@@ -12,7 +12,51 @@ private int leaveNumber;
 
 private int incidentNumber;
 
-private int undercapacity_display;
+
+private int underCapacityNumber;
+
+private int SL_Number;
+
+    public int getSL_Number() {
+        return SL_Number;
+    }
+
+    public void setSL_Number(int SL_Number) {
+        this.SL_Number = SL_Number;
+    }
+
+    public int getUnderCapacityNumber() {
+        return underCapacityNumber;
+    }
+
+    public void setUnderCapacityNumber(int underCapacityNumber) {
+        this.underCapacityNumber = underCapacityNumber;
+    }
+
+    private int leavesToday;
+
+    private int announcment_display;
+
+
+    public int getLeavesToday() {
+        return leavesToday;
+    }
+
+    public void setLeavesToday(int leavesToday) {
+        this.leavesToday = leavesToday;
+    }
+
+    public int getAnnouncment_display() {
+        return announcment_display;
+    }
+
+    public void setAnnouncment_display(int announcment_display) {
+        this.announcment_display = announcment_display;
+    }
+
+    private int undercapacity_display;
+
+
     private String activeNum;
 
     public int getUndercapacity_display() {

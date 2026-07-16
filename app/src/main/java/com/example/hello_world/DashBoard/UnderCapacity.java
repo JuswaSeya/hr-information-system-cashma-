@@ -1,8 +1,11 @@
-package com.example.hello_world;
+
+package com.example.hello_world.DashBoard;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,26 +13,39 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.hello_world.DashBoard.HomePage;
+import com.example.hello_world.R;
 
-public class info extends AppCompatActivity {
 
-    private Button infobtnBack;
+public class UnderCapacity extends AppCompatActivity {
+
+    private Button btnBackUC;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.fab_info);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.infopage), (v, insets) -> {
+        setContentView(R.layout.activity_under_capacity);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.underCapacityLayout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
+
             return insets;
         });
-        infobtnBack = findViewById(R.id.infobtnBack);
-        infobtnBack.setOnClickListener(view -> {
-            Intent intent = new Intent(info.this, HomePage.class);
+
+        btnBackUC = findViewById(R.id.btnBackUC);
+        btnBackUC.setOnClickListener(view -> {
+            Intent intent = new Intent(UnderCapacity.this, HomePage.class);
             startActivity(intent);
+
+
         });
+
+
     }
+
+
 }
+

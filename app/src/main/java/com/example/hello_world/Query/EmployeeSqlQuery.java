@@ -1,20 +1,9 @@
 package com.example.hello_world.Query;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.hello_world.R;
 import com.example.hello_world.dbconnection.connector;
 import com.example.hello_world.models.Employee;
 
@@ -25,11 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
+public class EmployeeSqlQuery {
 
-public class EmployeeLogin {
-
-    private Employee emp = new Employee() ;
+    private Employee emp = new Employee();
 
     public boolean login(Employee emp, Context context) {
 
@@ -61,6 +48,8 @@ public class EmployeeLogin {
             }
         }
         return false;
+
+
     }
 
 
@@ -96,42 +85,99 @@ public class EmployeeLogin {
         }
 
 
-
         return null;
     }
 
 
-public Employee getDetailsFromID (String emp_id, Context context){
+    public Employee getDetailsFromID(String emp_id, Context context) {
         Employee employee = null;
 
-    Connection connector = new connector(context).getConnection();
-    if (connector == null) {
-        return null;
-    } else {
-        try {
-            CallableStatement clst = connector.prepareCall("{call getEmployeeDetails(?) }");
-            clst.setString(1, emp_id);
-            ResultSet rs = clst.executeQuery();
+        Connection connector = new connector(context).getConnection();
+        if (connector == null) {
+            return null;
+        } else {
+            try {
+                CallableStatement clst = connector.prepareCall("{call getEmployeeDetails(?) }");
+                clst.setString(1, emp_id);
+                ResultSet rs = clst.executeQuery();
 
-            if (rs.next()){
-                employee=new Employee();
-                employee.setEmpId(rs.getString("Employee_ID"));
-                employee.setName(rs.getString("Fullname"));
-                employee.setPosition(rs.getString("JobTitle"));
-                employee.setDEPARTMENT(rs.getString("Department_Name"));
-                employee.setSTATUS(rs.getString("Active"));
-                employee.setImageByte(rs.getBytes("PicImages"));
+                if (rs.next()) {
+                    employee = new Employee();
+                    employee.setEmpId(rs.getString("Employee_ID"));
+                    employee.setName(rs.getString("Fullname"));
+                    employee.setPosition(rs.getString("JobTitle"));
+                    employee.setDEPARTMENT(rs.getString("Department_Name"));
+                    employee.setSTATUS(rs.getString("Active"));
+                    employee.setImageByte(rs.getBytes("PicImages"));
 
+                }
+            } catch (Exception e) {
+                Log.e("SQL Connection Error", Log.getStackTraceString(e)); // full stack trace
             }
-        } catch (Exception e) {
-            Log.e("SQL Connection Error", Log.getStackTraceString(e)); // full stack trace
         }
+        return employee;
     }
-return employee;
+
+
+
+public int leavesToday (String empid, Context context){                                                           //class leaves
+
+
+      int total = 0;
+
+      try{
+          Connection con = new connector(context).getConnection();
+
+          String sql =
+                  "select count(*) as employeeCountLeave from tblLeave  where EmpID = ?";
+
+          PreparedStatement ps = con.prepareStatement(sql);
+
+          ps.setString(1, empid);
+
+
+
+          ResultSet rs = ps.executeQuery();
+
+          if (rs.next()) {
+              total = rs.getInt("employeeCountLeave");
+          }
+
+          rs.close();
+          ps.close();
+          con.close();
+
+      } catch (Exception e) {
+          Log.e("SQL", Log.getStackTraceString(e));
+      }
+
+    return total;
 }
 
 
 
+public int underCapacityDisplay (String EmpUnderCapacity,Context context){                                      //undercapacity
+        int total = 0;
+
+        try{
+            Connection con = new connector(context).getConnection();
+            CallableStatement cs = con.prepareCall("{call UnderCapacityEmployees()}");
+
+            ResultSet rs = cs.executeQuery();
+
+
+            if (rs.next()){
+                total = rs.getInt("count");
+            }
+            rs.close();
+            cs.close();
+            con.close();
+        } catch (Exception e) {
+            Log.e("SQL", Log.getStackTraceString(e));
+
+                }
+    return total;
+        }
 
 
 
@@ -141,10 +187,7 @@ return employee;
 
 
 
-
-
-
- public int activeNum (Context context ) {
+ public int activeNum (Context context ) {                                                                      //activeEmployeesDisplay
 
      try {
 
@@ -166,7 +209,6 @@ return employee;
      }
     return 0;
  }
-
     public ArrayList<Employee> getActiveEmployees(Context context) {
 
         ArrayList<Employee> list = new ArrayList<>();
@@ -208,7 +250,37 @@ return employee;
         return list;
     }
 
-    public ArrayList<Employee> searchEmployees(Context context, String keyword) {
+
+
+    public int AnnonuncementCountDisplay (Context context){                                                     //AnnonuncementCountDisplay
+
+        try {
+            Connection con = new connector(context).getConnection();
+            String sql = "select count(*) as announcementID  from tblAnnouncement";
+
+
+            PreparedStatement ps_announcement = con.prepareStatement(sql);
+            ResultSet rs_announcement = ps_announcement.executeQuery();
+            if (rs_announcement.next()) {
+                return rs_announcement.getInt("announcementID");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+            return 0;
+    }
+
+
+
+
+
+
+
+
+
+    public ArrayList<Employee> searchEmployees(Context context, String keyword) {                                   //searchEMplyee
 
         ArrayList<Employee> list = new ArrayList<>();
 
@@ -261,7 +333,40 @@ return employee;
 
         return list;
     }
+
+
+    public int sickLeaveCount (Context context){                                                                    //sickleave count
+        int total = 0;
+         try{
+             Connection con = new connector(context).getConnection();
+
+             String sql =" \n" +
+
+                     "select *  from tblLeaveCredits where LeaveName='SICK LEAVE' and EmpID = ''";
+
+             PreparedStatement ps = con.prepareStatement(sql);
+             String sl = "%";
+             ps.setString(1, sl);
+
+             ResultSet rs= ps.executeQuery();
+
+             while (rs.next()) {
+
+             }
+
+                 Employee emp = new Employee();   // Create a new object
+
+                 emp.setEmpId(rs.getString("SlCount"));
+
+         }  catch (Exception e) {
+             Log.e("SQL Error", Log.getStackTraceString(e));
+         }
+
+        return 0;
+    }
 }
+
+
 
 
 

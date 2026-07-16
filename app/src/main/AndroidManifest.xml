@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hello_world">
         <activity
-            android:name=".ActiveEmployee"
+            android:name=".DashBoard.ActiveEmployee.ActiveEmployee"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".DashBoard.HomePage"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -33,27 +33,27 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Announcement"
+            android:name=".DashBoard.Announcement"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".UnderCapacity"
+            android:name=".DashBoard.UnderCapacity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".leaves"
+            android:name=".DashBoard.leaves"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".obtfiledtoday"
+            android:name=".DashBoard.obtfiledtoday"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".tardiness"
+            android:name=".DashBoard.tardiness"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".incident_report"
+            android:name=".DashBoard.incident_report"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -69,7 +69,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".obtfiledtoday"
+            android:name=".DashBoard.obtfiledtoday"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -81,7 +81,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".employee_details"
+            android:name=".DashBoard.ActiveEmployee.employee_details"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".announcementArrayList"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

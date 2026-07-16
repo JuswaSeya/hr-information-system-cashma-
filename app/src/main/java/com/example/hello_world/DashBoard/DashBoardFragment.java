@@ -1,9 +1,8 @@
-package com.example.hello_world;
+package com.example.hello_world.DashBoard;
 
 import static android.content.Context.MODE_PRIVATE;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -20,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hello_world.Query.EmployeeLogin;
+import com.example.hello_world.DashBoard.ActiveEmployee.ActiveEmployee;
+import com.example.hello_world.Query.EmployeeSqlQuery;
+import com.example.hello_world.R;
 import com.example.hello_world.models.Employee;
 
 /**
@@ -74,6 +75,8 @@ public class DashBoardFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+
         }
     }
 
@@ -93,29 +96,39 @@ public class DashBoardFragment extends Fragment {
 
 
 
+        TextView underCapacityDisplay = view.findViewById(R.id.underCapacityNumber);
+        TextView numLeave = view.findViewById(R.id.numleaves);                                           //for leaves number in dashboard
+
+                       //for undercapacity number in dashboard
 
         TextView nameLayout = view.findViewById(R.id.textView7);
         TextView position = view.findViewById(R.id.jobtitle);
         ImageView image = view.findViewById(R.id.imageView2);
-        TextView leavesdisplay =view.findViewById(R.id.numleaves);
-        TextView incident_display= view.findViewById(R.id.incidentdisplay);
+        TextView incident_display= view.findViewById(R.id.incidentReportNum);
         Employee employee= new Employee();
-
-
+        TextView AnnouncementDisplay = view.findViewById(R.id.announcementNumber);
         TextView active_count = view.findViewById(R.id.activeEmployeeCount);
 
-        active_count.setText( String.valueOf(new EmployeeLogin().activeNum(requireContext())));
 
+        active_count.setText( String.valueOf(new EmployeeSqlQuery().activeNum(requireContext())));
+        AnnouncementDisplay.setText(String.valueOf(employee.getAnnouncment_display()));
 
-        employee= new EmployeeLogin().value(employeeID, requireContext());
+        employee= new EmployeeSqlQuery().value(employeeID, requireContext());
+
 
         incident_display.setText(String.valueOf( employee.getIncidentNumber()));
-        leavesdisplay.setText(String.valueOf( employee.getLeaveNumber()));
 
+        numLeave.setText(String.valueOf(employee.getLeavesToday()) );                                       //to call your leaves number in dashbaord
+        underCapacityDisplay.setText(String.valueOf(employee.getUnderCapacityNumber()));
         nameLayout.setText(employee.getName());
         position.setText(employee.getPosition());
         name = employee.getName();
         Toast.makeText(requireContext(), name +" \t" + employeeID, Toast.LENGTH_SHORT).show();
+
+
+
+
+
 
         if (employee.getImageByte() != null && employee.getImageByte().length > 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(employee.getImageByte(), 0, employee.getImageByte().length);
@@ -130,6 +143,8 @@ public class DashBoardFragment extends Fragment {
 
             Intent intent = new Intent(requireContext(), ActiveEmployee.class);
             startActivity(intent);
+
+
 
         });
 
@@ -151,11 +166,41 @@ public class DashBoardFragment extends Fragment {
 
         LinearLayout leaves= view.findViewById(R.id.numLeavesButton);
         leaves.setOnClickListener(v -> {
-            startActivity(new Intent(requireContext(), leaves.class));
 
+            Intent intent = new Intent(requireContext(), leaves.class);
+            intent.putExtra("EMP_ID", employeeID);
+            startActivity(intent);
 
 
         });
+
+
+                                                                                                                //for leaves display
+
+        EmployeeSqlQuery employeeLeaves = new EmployeeSqlQuery();
+
+        new Thread(() -> {
+
+            int totalLeaves = employeeLeaves.leavesToday(employeeID,requireContext());
+
+            requireActivity().runOnUiThread(() -> {
+                numLeave.setText(Integer.toString(totalLeaves));
+            });
+
+        }).start();
+                                                                                                                    // for underCapacityDisplay
+        EmployeeSqlQuery employeeUnderCapacity = new EmployeeSqlQuery();
+
+        new Thread(() -> {
+
+            int undercapacityINT = employeeUnderCapacity.underCapacityDisplay (employeeID,requireContext());
+
+            requireActivity().runOnUiThread(() -> {
+                underCapacityDisplay.setText(Integer.toString(undercapacityINT));
+            });
+
+        }).start();
+
 
 
 
